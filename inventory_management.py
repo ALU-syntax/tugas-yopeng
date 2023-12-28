@@ -1,5 +1,4 @@
 from tabulate import tabulate
-import time
 
 programMenyala = True
 header = ['Kode barang (sku)', 'Nama', 'Quantity', 'Jadwal Keluar', 'Jadwal Masuk']
@@ -17,6 +16,10 @@ def main():
                 barangKeluar()
             case "3":
                 barangMasuk()
+            case "4":
+                update()
+            case "5":
+                cariBarang()
             case "6":
                 exit()
             
@@ -36,32 +39,79 @@ def tampilData():
 def barangKeluar():
     pilihKodeBarang = input("Pilih Kode Barang: ")
     jumlahIndexTotalBarang = len(data)
+    indexDataTerpilih = ''
+    kodeDitemukan = False
     
     for i in range(0,jumlahIndexTotalBarang):
-        print("\n")
         for z in range(5):
-            print(data[i][z])
             if data[i][z] == pilihKodeBarang:
-                print(tabulate())
-            
-    
+                dataKode = data[i][0]
+                dataNama = data[i][1]
+                dataQuantity = data[i][2]
+                dataJadwalkeluar = data[i][3]
+                dataJadwalMasuk = data[i][4]
+                dataTmp = [[dataKode, dataNama, dataQuantity, dataJadwalkeluar, dataJadwalMasuk]]
+                print(tabulate(dataTmp, headers=header, tablefmt="fancy_grid"))
+                kodeDitemukan = True
+                inputQuantityBaru = input("Masukan Quantity Baru: ")
+                indexDataTerpilih = i
+                
+    if kodeDitemukan:
+        data[indexDataTerpilih][2] = inputQuantityBaru + "Kg"
+    else:
+        print("Kode Tidak Ditemukan")
+        
 def barangMasuk():
     print("\n")
     inputKodeBarang = input("Masukan Kode Barang: ")
     inputNamaBarang = input("Masukan Nama Barang: ")
     inputQuantityBarang = input("Masukan Quantity Barang: ")
-    t = time.localtime()
-    current_time = time.strftime("%H:%M:%S", t)
-    indexDataTerakhir = len(data)
-    dataMasuk = [inputKodeBarang, inputNamaBarang, inputQuantityBarang, current_time, current_time]
-    print(dataMasuk)
+    inputJadwalMasuk = input("Masukan Jadwal Masuk: ")
+    inputJadwalKeluar = input("Masukan Jadwal Keluar: ")
+    
+    dataMasuk = [inputKodeBarang, inputNamaBarang, inputQuantityBarang+"Kg", inputJadwalKeluar, inputJadwalMasuk]
     data.append(dataMasuk)
+    
+def update():
+    pilihKodeBarang = input("Pilih Kode Barang: ")
+    jumlahIndexTotalBarang = len(data)
+    indexDataTerpilih = ''
+    kodeDitemukan = False
+    
+    for i in range(0,jumlahIndexTotalBarang):
+        for z in range(5):
+            if data[i][z] == pilihKodeBarang:
+                dataKode = data[i][0]
+                dataNama = data[i][1]
+                dataQuantity = data[i][2]
+                dataJadwalkeluar = data[i][3]
+                dataJadwalMasuk = data[i][4]
+                dataTmp = [[dataKode, dataNama, dataQuantity, dataJadwalkeluar, dataJadwalMasuk]]
+                print(tabulate(dataTmp, headers=header, tablefmt="fancy_grid"))
+                kodeDitemukan = True
+                inputKodeBaru = input("Masukan Kode Baru: ")
+                indexDataTerpilih = i
+                
+    if kodeDitemukan:
+        data[indexDataTerpilih][0] = inputKodeBaru
+    else:
+        print("Kode Tidak Ditemukan")
 
     
+def cariBarang():
+    pilihKodeBarang = input("Pilih Kode atau Nama Barang: ")
+    jumlahIndexTotalBarang = len(data)
     
-# def update():
-    
-# def cariBarang():
+    for i in range(0,jumlahIndexTotalBarang):
+        for z in range(5):
+            if data[i][z] == pilihKodeBarang :
+                dataKode = data[i][0]
+                dataNama = data[i][1]
+                dataQuantity = data[i][2]
+                dataJadwalkeluar = data[i][3]
+                dataJadwalMasuk = data[i][4]
+                dataTmp = [[dataKode, dataNama, dataQuantity, dataJadwalkeluar, dataJadwalMasuk]]
+                print(tabulate(dataTmp, headers=header, tablefmt="fancy_grid"))
     
 
 if __name__ == "__main__":
