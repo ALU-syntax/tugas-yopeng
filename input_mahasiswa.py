@@ -19,6 +19,8 @@ def main():
             case "4":
                 updateNamaBaseOnNim()
             case "5":
+                print("Program Dimatikan.")
+                programMenyala = False
                 exit()
             case _:
                 print("Perintah Tidak Ditemukan!")
